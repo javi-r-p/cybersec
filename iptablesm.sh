@@ -17,12 +17,20 @@ negritacianintenso='\033[1;96m'     #Cián intenso y negrita
 fondorojo='\033[0;101m'             #Fondo rojo e intenso
 
 # Función de salida con control de errores
+<<<<<<< HEAD
 function salida() {
     codigo=$1
     if [ $codigo -eq 0 ]; then
         echo -e "${verde}Programa finalizado ($codigo)${fincolor}";
     else
         echo -e "${rojo}Programa finalizado ($codigo)${fincolor}";
+=======
+function salida(codigo) {
+    if [ $codigo == 0]; then
+        echo -e "${verdei}Programa finalizado ($codigo)${fincolor}";
+    else
+        echo -e "${rojoi}Programa finalizado ($codigo)${fincolor}";
+>>>>>>> 4d4e287716375d34215cf10cca0ba88a322b9c5b
     fi
 }
 
@@ -32,12 +40,19 @@ if [ $EUID != 0 ]; then
     salida(1);
 fi
 
+<<<<<<< HEAD
 function crear() {
     tabla=$1
     echo -e "${verde}Crear una regla${fincolor}";
 }
 function listar() {
     tabla=$1
+=======
+function crear(tabla) {
+    echo -e "${verde}Crear una regla${fincolor}";
+}
+function listar(tabla) {
+>>>>>>> 4d4e287716375d34215cf10cca0ba88a322b9c5b
     echo -e "${azul}Ver listado de reglas${fincolor}";
 }
 function eliminar {
