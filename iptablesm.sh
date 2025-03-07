@@ -29,7 +29,7 @@ function salida() {
 # Comprobar que quien ejecuta el script es el usuario root
 if [ $EUID != 0 ]; then
     echo "El usuario que ejecute este script debe ser el usuario root";
-    salida(1);
+    salida 1;
 fi
 
 function crear() {
@@ -55,11 +55,11 @@ case $opcion in
         echo "1. Tabla NAT";
         echo "2. Tabla filter (cortafuegos)";
         read -p "Selecciona una tabla: " tabla;
-        crear(tabla);;
+        crear $tabla;;
     2)
-        listar(tabla);;
+        listar $tabla;;
     3)
         eliminar;;
     4)
-        salida(0);;
+        salida 0;;
 esac
