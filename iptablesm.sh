@@ -21,8 +21,10 @@ function salida() {
     codigo=$1
     if [ $codigo -eq 0 ]; then
         echo -e "${verde}Programa finalizado ($codigo)${fincolor}";
+        exit $codigo;
     else
         echo -e "${rojo}Programa finalizado ($codigo)${fincolor}";
+        exit $codigo
     fi
 }
 
