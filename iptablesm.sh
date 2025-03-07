@@ -32,10 +32,10 @@ if [ $EUID != 0 ]; then
     exit 1;
 fi
 
-function crear {
+function crear (tabla) {
     echo -e "${verde}Crear una regla${fincolor}";
 }
-function listar {
+function listar (tabla) {
     echo -e "${azul}Ver listado de reglas${fincolor}";
 }
 function eliminar {
