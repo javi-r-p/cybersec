@@ -17,25 +17,27 @@ negritacianintenso='\033[1;96m'     #Cián intenso y negrita
 fondorojo='\033[0;101m'             #Fondo rojo e intenso
 
 # Función de salida con control de errores
-function salida (codigo) {
-    if [ $codigo == 0]; then
-        echo -e "${verdei}Programa finalizado ($codigo)${fincolor}";
+function salida() {
+    codigo=$1
+    if [ $codigo -eq 0 ]; then
+        echo -e "${verde}Programa finalizado ($codigo)${fincolor}";
     else
-        echo -e "${rojoi}Programa finalizado ($codigo)${fincolor}"
+        echo -e "${rojo}Programa finalizado ($codigo)${fincolor}";
     fi
 }
 
 # Comprobar que quien ejecuta el script es el usuario root
 if [ $EUID != 0 ]; then
     echo "El usuario que ejecute este script debe ser el usuario root";
-    echo "Programa finalizado (1)"
-    exit 1;
+    salida(1);
 fi
 
-function crear (tabla) {
+function crear() {
+    tabla=$1
     echo -e "${verde}Crear una regla${fincolor}";
 }
-function listar (tabla) {
+function listar() {
+    tabla=$1
     echo -e "${azul}Ver listado de reglas${fincolor}";
 }
 function eliminar {
@@ -53,11 +55,11 @@ case $opcion in
         echo "1. Tabla NAT";
         echo "2. Tabla filter (cortafuegos)";
         read -p "Selecciona una tabla: " tabla;
-        crear (tabla);;
+        crear(tabla);;
     2)
-        listar (tabla);;
+        listar(tabla);;
     3)
         eliminar;;
     4)
-        salida (0);;
+        salida(0);;
 esac
