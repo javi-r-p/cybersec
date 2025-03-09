@@ -89,7 +89,7 @@ case $option in
         read -p "Choose a table: " table
         while
             read -p "Choose a table: " table
-            [ -z $table ] || [ $table -gt 3 ]
+            [ -z $table ] || [ $table -gt 3 ] || [ $table -lt 1 ]
         do
             echo "The table you have chosen doesn't exist"
         done
@@ -101,7 +101,7 @@ case $option in
         echo "3. All tables"
         while
             read -p "Choose a table: " table
-            [ -z $table ] || [ $table -gt 3 ]
+            [ -z $table ] || [ $table -gt 3 ] || [ $table -lt 1 ]
         do
             echo "The table you have chosen doesn't exist"
         done
