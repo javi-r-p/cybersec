@@ -97,7 +97,7 @@ case $option in
         done
         add $table;;
     2)
-        echo "You can view the rules in these two tables:";
+        echo "You can view the rules in these three tables:";
         echo "1. Filter (firewall)"
         echo "2. NAT"
         echo "3. All tables"
