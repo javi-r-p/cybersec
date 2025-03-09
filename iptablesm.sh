@@ -35,7 +35,8 @@ fi
 
 # Function to add a rule
 function add() {
-    echo -e "${green}Add a rule${nocolour}"
+    echo -e "${green}-----${nocolour}"
+    echo "Add a rule"
     if [ $1 -eq 1 ]; then
         echo "The rule will be added to the filter table"
         read -p "Select a chain to which add the rule: (INPUT / OUTPUT / FORWARD) " chain
@@ -56,6 +57,7 @@ function add() {
 
 # Function to view rules
 function list() {
+    echo -e "${blue}-----${nocolour}"
     if [ $1 -eq 1 ]; then
         echo "Showing NAT table rules"
         iptables -t nat -L -n
@@ -91,7 +93,7 @@ case $option in
             read -p "Choose a table: " table
             [ -z $table ] || [ $table -gt 3 ] || [ $table -lt 1 ]
         do
-            echo "The table you have chosen doesn't exist"
+            echo -e "${backred}The table you have chosen doesn't exist${nocolour}"
         done
         add $table;;
     2)
@@ -103,7 +105,7 @@ case $option in
             read -p "Choose a table: " table
             [ -z $table ] || [ $table -gt 3 ] || [ $table -lt 1 ]
         do
-            echo "The table you have chosen doesn't exist"
+            echo -e "${backred}The table you have chosen doesn't exist${nocolour}"
         done
         list $table;;
     3)
