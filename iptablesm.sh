@@ -36,9 +36,8 @@ fi
 
 # Function to add a rule
 function add() {
-    table=$1;
     echo -e "${green}Add a rule${nocolour}";
-    if [ $table -eq 1 ]; then
+    if [ $1 -eq 1 ]; then
         echo "The rule will be added to the filter table";
         read -p "Select a chain to which add the rule: (INPUT / OUTPUT / FORWARD) " chain;
         if [ $chain == "INPUT" ]; then
@@ -58,16 +57,15 @@ function add() {
 
 # Function to view rules
 function list() {
-    table=$1;
-    if [ $table -eq 1 ]; then
-        echo "Showing NAT table rules"
-        iptables -t nat -L -n
-    elif [ $table -eq 2 ]; then
-        echo "Showing filter table rules"
-        iptables -t filter -L -n
-    elif [ $table -eq 3 ]; then
-        echo "Showing rules for all tables"
-        iptables -L
+    if [ $1 -eq 1 ]; then
+        echo "Showing NAT table rules";
+        iptables -t nat -L -n;
+    elif [ $1 -eq 2 ]; then
+        echo "Showing filter table rules";
+        iptables -t filter -L -n;
+    elif [ $1 -eq 3 ]; then
+        echo "Showing rules for all tables";
+        iptables -L;
     fi
 }
 
@@ -90,7 +88,7 @@ case $option in
         echo "1. Filter (firewall)";
         echo "2. NAT";
         read -p "Choose a table: " table;
-        if [ -z $table || $table -ne 1 || $table -ne 2 ]; then
+        if [[ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]]; then
             echo "The table you have chosen doesn't exist";
             quit 1;
         fi
@@ -100,7 +98,7 @@ case $option in
         echo "1. Filter (firewall)";
         echo "2. NAT";
         read -p "Choose a table: " table;
-        if [ -z $table || $table -ne 1 || $table -ne 2 ]; then
+        if [[ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]]; then
             echo "The table you have chosen doesn't exist";
             quit 1;
         fi
