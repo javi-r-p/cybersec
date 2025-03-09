@@ -59,12 +59,16 @@ function add() {
 # Function to view rules
 function list() {
     table=$1;
-    echo -e "${blue}View rules${nocolour}";
-    echo "Choose a table:";
-    echo "1. NAT";
-    echo "2. Filter";
-    echo "3. All";
-
+    if [ $table -eq 1 ]; then
+        echo "Showing NAT table rules"
+        iptables -t nat -L -n
+    elif [ $table -eq 2 ]; then
+        echo "Showing filter table rules"
+        iptables -t filter -L -n
+    elif [ $table -eq 3 ]; then
+        echo "Showing rules for all tables"
+        iptables -L
+    fi
 }
 
 # Function to delete a rule
@@ -92,6 +96,14 @@ case $option in
         fi
             add $table;;
     2)
+        echo "You can view the rules in these two tables:";
+        echo "1. Filter (firewall)";
+        echo "2. NAT";
+        read -p "Choose a table: " table;
+        if [ -z $table || $table -ne 1 || $table -ne 2 ]; then
+            echo "The table you have chosen doesn't exist";
+            quit 1;
+        fi
         list $table;;
     3)
         delete;;
