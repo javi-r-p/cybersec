@@ -18,89 +18,88 @@ backred='\033[0;101m'           #Bright red background
 
 # Error control and exit function
 function quit() {
-    code=$1
-    if [ $code -eq 0 ]; then
-        echo -e "${green}Program has ended with code $code${nocolour}";
-        exit $code;
+    if [ $1 -eq 0 ]; then
+        echo -e "${green}Program has ended with code $1${nocolour}"
+        exit $1
     else
-        echo -e "${red}Programa has ended with code $code${nocolour}";
-        exit $code;
+        echo -e "${red}Programa has ended with code $code${nocolour}"
+        exit $1
     fi
 }
 
 # Check the running user is root
 if [ $EUID -ne 0 ]; then
-    echo "You must be root to run this script";
-    quit 1;
+    echo "You must be root to run this script"
+    quit 1
 fi
 
 # Function to add a rule
 function add() {
-    echo -e "${green}Add a rule${nocolour}";
+    echo -e "${green}Add a rule${nocolour}"
     if [ $1 -eq 1 ]; then
-        echo "The rule will be added to the filter table";
-        read -p "Select a chain to which add the rule: (INPUT / OUTPUT / FORWARD) " chain;
+        echo "The rule will be added to the filter table"
+        read -p "Select a chain to which add the rule: (INPUT / OUTPUT / FORWARD) " chain
         if [ $chain == "INPUT" ]; then
-            echo "The rule will be added to the INPUT chain";
+            echo "The rule will be added to the INPUT chain"
         elif [ $chain == "OUTPUT" ]; then
-            echo "The rule will be added to the OUTPUT chain";
+            echo "The rule will be added to the OUTPUT chain"
         elif [ $chain == "FORWARD" ]; then
-            echo "The rule will be added to the FORWARD chain";
+            echo "The rule will be added to the FORWARD chain"
         else
-            echo "The chain you have chosen doesn't exist";
-            quit 1;
+            echo "The chain you have chosen doesn't exist"
+            quit 1
         fi
     else
-        echo "The rule will be added to the NAT table";
+        echo "The rule will be added to the NAT table"
     fi
 }
 
 # Function to view rules
 function list() {
     if [ $1 -eq 1 ]; then
-        echo "Showing NAT table rules";
-        iptables -t nat -L -n;
+        echo "Showing NAT table rules"
+        iptables -t nat -L -n
     elif [ $1 -eq 2 ]; then
-        echo "Showing filter table rules";
-        iptables -t filter -L -n;
+        echo "Showing filter table rules"
+        iptables -t filter -L -n
     elif [ $1 -eq 3 ]; then
-        echo "Showing rules for all tables";
-        iptables -L;
+        echo "Showing rules for all tables"
+        iptables -L
     fi
 }
 
 # Function to delete a rule
 function delete {
-    echo -e "${backred}Delete a rule${nocolour}";
+    echo -e "${backred}Delete a rule${nocolour}"
 }
 
 # Menu
-echo "-----";
-echo "Available options:";
-echo -e "${green}1. Add a rule${nocolour}";
-echo -e "${blue}2. View rules${nocolour}";
-echo -e "${backred}3. Delete a rule${nocolour}";
-echo -e "${yellow}4. Exit${nocolour}";
-read -p "Choose an action: " option;
+echo "-----"
+echo "Available options:"
+echo -e "${green}1. Add a rule${nocolour}"
+echo -e "${blue}2. View rules${nocolour}"
+echo -e "${backred}3. Delete a rule${nocolour}"
+echo -e "${yellow}4. Exit${nocolour}"
+read -p "Choose an action: " option
 case $option in
     1)
-        echo "You can add a rule in these two tables:";
-        echo "1. Filter (firewall)";
-        echo "2. NAT";
-        read -p "Choose a table: " table;
+        echo "You can add a rule in these two tables:"
+        echo "1. Filter (firewall)"
+        echo "2. NAT"
+        read -p "Choose a table: " table
         if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
-            echo "The table you have chosen doesn't exist";
-            quit 1;
+            echo "The table you have chosen doesn't exist"
+            quit 1
         fi
             add $table;;
     2)
         echo "You can view the rules in these two tables:";
-        echo "1. Filter (firewall)";
-        echo "2. NAT";
-        read -p "Choose a table: " table;
+        echo "1. Filter (firewall)"
+        echo "2. NAT"
+        read -p "Choose a table: " table
         if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
-            echo "The table you have chosen doesn't exist";
-            quit 1;
+            echo "The table you have chosen doesn't exist"
+            quit 1
         fi
         list $table;;
     3)
