@@ -22,7 +22,7 @@ function quit() {
         echo -e "${green}Program has ended with code $1${nocolour}"
         exit $1
     else
-        echo -e "${red}Programa has ended with code $code${nocolour}"
+        echo -e "${red}Programa has ended with code $1${nocolour}"
         exit $1
     fi
 }
@@ -96,8 +96,9 @@ case $option in
         echo "You can view the rules in these two tables:";
         echo "1. Filter (firewall)"
         echo "2. NAT"
+        echo "3. All tables"
         read -p "Choose a table: " table
-        if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
+        if [ -z $table ] || [ $table -gt 3 ]; then
             echo "The table you have chosen doesn't exist"
             quit 1
         fi
