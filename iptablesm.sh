@@ -87,21 +87,24 @@ case $option in
         echo "1. Filter (firewall)"
         echo "2. NAT"
         read -p "Choose a table: " table
-        if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
+        while
+            read -p "Choose a table: " table
+            [ -z $table ] || [ $table -gt 3 ]
+        do
             echo "The table you have chosen doesn't exist"
-            quit 1
-        fi
-            add $table;;
+        done
+        add $table;;
     2)
         echo "You can view the rules in these two tables:";
         echo "1. Filter (firewall)"
         echo "2. NAT"
         echo "3. All tables"
-        read -p "Choose a table: " table
-        if [ -z $table ] || [ $table -gt 3 ]; then
+        while
+            read -p "Choose a table: " table
+            [ -z $table ] || [ $table -gt 3 ]
+        do
             echo "The table you have chosen doesn't exist"
-            quit 1
-        fi
+        done
         list $table;;
     3)
         delete;;
