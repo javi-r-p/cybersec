@@ -88,7 +88,7 @@ case $option in
         echo "1. Filter (firewall)";
         echo "2. NAT";
         read -p "Choose a table: " table;
-        if [[ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]]; then
+        if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
             echo "The table you have chosen doesn't exist";
             quit 1;
         fi
@@ -98,7 +98,7 @@ case $option in
         echo "1. Filter (firewall)";
         echo "2. NAT";
         read -p "Choose a table: " table;
-        if [[ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]]; then
+        if [ -z $table ] || [ $table -ne 1 ] || [ $table -ne 2 ]; then
             echo "The table you have chosen doesn't exist";
             quit 1;
         fi
