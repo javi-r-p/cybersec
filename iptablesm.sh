@@ -2,7 +2,6 @@
 clear
 
 # Rules managing for IPTables
-echo "IPTables rules manager"
 
 # Colours definition
 nocolour='\e[0m'                #Delete colour
@@ -15,6 +14,11 @@ blue='\033[0;94m'               #Bright blue
 cyan='\033[0;96m'               #Bright cyan
 brightboldcyan='\033[1;96m'     #Bold and bright cyan
 backred='\033[0;101m'           #Bright red background
+
+# Welcome message
+echo -e "${green}IPTables rules manager${nocolour}"
+echo -e "${red}Please note that if you use any domain name, the device must be able to resolve them.${nocolour}"
+sleep 2
 
 # Error control and exit function
 function quit() {
@@ -40,15 +44,27 @@ function add() {
     if [ $1 -eq 1 ]; then
         echo "The rule will be added to the filter table"
         read -p "Select a chain to which add the rule: (INPUT / OUTPUT / FORWARD) " chain
-        if [ $chain == "INPUT" ]; then
-            echo "The rule will be added to the INPUT chain"
-        elif [ $chain == "OUTPUT" ]; then
-            echo "The rule will be added to the OUTPUT chain"
-        elif [ $chain == "FORWARD" ]; then
-            echo "The rule will be added to the FORWARD chain"
-        else
-            echo "The chain you have chosen doesn't exist"
-            quit 1
+        echo "-----"
+        case $chain in
+            "INPUT")
+                read -p "Interface through which the packet is received: " i
+            "OUTPUT")
+                read -p "Interface through which the packet is sent: "
+                read -p "Destination address or domain name: " d
+            "FORWARD")
+                read -p "Interface through which the packet is sent: "
+                read -p "Interface through which the packet is received: " i
+                read -p "Destination address or domain name: " d
+            *)
+                echo "The chain you have chosen doesn't exist"
+                quit 1
+            esac
+            read -p "Source IP address or domain name: " s
+            read -p "Protocol: " p
+            if [ -n $p ]; then
+                read -p "Destination port: " dport
+                read -p "Source port: " sport
+            fi
         fi
     else
         echo "The rule will be added to the NAT table"
